@@ -1,0 +1,26 @@
+/* 
+  Removed .dashboard-container and its background-color (will be applied via sx prop in Dashboard.js).
+  Removed .dashboard-header, .header-left, .logo-container, .company-name, .header-center, .header-right, .header-logo,
+  .dashboard-header h1, .logout-button as the common Header is used via PageLayout.
+  Removed .dashboard-content and its h1, h2, p styles as PageLayout provides the main container and titles.
+*/
+
+.blog-grid {
+  /* Consistent padding for the grid container on Home and Dashboard pages */
+  padding: 16px 0; /* 1rem = 16px, applied to top and bottom */
+  /* display: grid, grid-template-columns, gap, max-width, margin are removed 
+     as these are handled by MUI Grid props or PageLayout */
+}
+
+@media (max-width: 1024px) {
+  .blog-grid {
+    /* grid-template-columns are handled by Grid item props (xs, sm, md) */
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-grid {
+    /* grid-template-columns and gap are handled by Grid item/container props */
+    /* gap: 1.5rem; */ /* This was here, but spacing={3} in Grid container is 24px, so it's similar */
+  }
+} 

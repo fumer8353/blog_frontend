@@ -1,0 +1,13 @@
+/* 
+  The .blog-grid class is now defined in src/styles/Dashboard.css 
+  and is used by both Home.js and Dashboard.js for consistent padding around the grid.
+  This file is intentionally left with only comments, as its previous .blog-grid rule
+  (which applied margins) is superseded by the padding rule in Dashboard.css.
+*/
+
+/* 
+  Removed .home-container, .loading-container as PageLayout handles this.
+  Removed .blog-card, .blog-card-content, .blog-title-container, .blog-title, 
+  .blog-content, .blog-categories, .blog-date, .blog-actions, .premium-chip 
+  as these are now handled by the PostCard component using MUI sx props or defaults.
+*/ 

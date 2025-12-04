@@ -1,0 +1,112 @@
+/* 
+  Removed .blog-post-container, .loading-container, .error-container as PageLayout handles these.
+  Removed .blog-post-paper; PostCard (an MUI Card) provides the paper-like background. Specific padding can be sx prop on PostCard if needed.
+  Styles for .blog-post-image, .blog-post-title, .blog-post-categories, .blog-post-metadata, .blog-post-content (basic text styling), .blog-post-tags
+  are largely handled by PostCard internal MUI components and sx props. 
+  If very specific overrides are needed, they should be targeted carefully or integrated into PostCard variants.
+*/
+
+/* Styles for elements that PostCard MIGHT NOT cover if a more detailed layout is restored in BlogPost.js */
+/*
+.blog-content header {
+  margin-bottom: 2rem;
+}
+
+.blog-content h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.blog-meta {
+  display: flex;
+  gap: 1rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.blog-category {
+  background-color: #e9ecef;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+}
+
+.blog-body {
+  line-height: 1.8;
+  color: #444;
+}
+
+.blog-body p {
+  margin-bottom: 1.5rem;
+}
+
+.author-section {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.author-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-info h3 {
+  margin: 0;
+  color: #333;
+}
+
+.author-role {
+  color: #666;
+  margin: 0.25rem 0;
+}
+
+.author-bio {
+  color: #666;
+  margin: 0.5rem 0;
+}
+
+.author-linkedin {
+  color: #0077b5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.author-linkedin:hover {
+  text-decoration: underline;
+}
+
+.blog-post-not-found {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.blog-post-not-found h2 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.blog-post-not-found p {
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .blog-content {
+    padding: 0 1rem;
+  }
+
+  .blog-content h1 {
+    font-size: 2rem;
+  }
+
+  .author-section {
+    flex-direction: column;
+    text-align: center;
+  }
+} 
+*/ 
