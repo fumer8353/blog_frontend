@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import {
   Container,
   Typography,
@@ -48,14 +48,14 @@ const AdminDashboard = () => {
     try {
       const token = localStorage.getItem('token');
       if (editingPost) {
-        await axios.put(
+        await api.put(
           `/api/admin/posts/${editingPost.id.replace('post:','')}`,
           formDataToSend,
           { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' } }
         );
         setFormSuccess('Post updated successfully');
       } else {
-        await axios.post(
+        await api.post(
           `/api/admin/posts`,
           formDataToSend,
           { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' } }
@@ -77,7 +77,7 @@ const AdminDashboard = () => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
         const token = localStorage.getItem('token');
-        await axios.delete(`/api/admin/posts/${id.replace('post:','')}`,
+        await api.delete(`/api/admin/posts/${id.replace('post:','')}`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         setFormSuccess('Post deleted successfully');
@@ -95,7 +95,7 @@ const AdminDashboard = () => {
       const newStatus = post.status === 'published' ? 'draft' : 'published';
       const postDataToUpdate = { ...post, status: newStatus };
       delete postDataToUpdate.id;
-      await axios.put(
+      await api.put(
         `/api/admin/posts/${post.id.replace('post:','')}`,
         postDataToUpdate,
         { headers: { Authorization: `Bearer ${token}` } }
