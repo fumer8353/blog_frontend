@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 
 const AuthContext = createContext(null);
 
@@ -21,8 +21,8 @@ export const AuthProvider = ({ children }) => {
       try {
         const token = localStorage.getItem('token');
         if (token) {
-          // Verify token with backend - use relative URL with /api prefix
-          const response = await axios.get(`/api/auth/verify`, {
+          // Verify token with backend
+          const response = await api.get(`/api/auth/verify`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           setUser(response.data.user);
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }) => {
   const signup = async ({ name, email, password }) => {
     try {
       // console.log('Signup data:', { name, email, password });
-      await axios.post('/api/auth/signup', {
+      await api.post('/api/auth/signup', {
         name,
         email,
         password
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
   const login = async ({ email, password }) => {
     try {
       // console.log('Login data:', { email, password });
-      const response = await axios.post('/api/auth/login', {
+      const response = await api.post('/api/auth/login', {
         email,
         password
       });

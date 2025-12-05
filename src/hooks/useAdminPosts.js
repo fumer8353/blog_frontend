@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 
 const useAdminPosts = () => {
   const [posts, setPosts] = useState([]);
@@ -14,8 +14,8 @@ const useAdminPosts = () => {
       if (!token) {
         throw new Error('Authentication token not found.');
       }
-      // Use relative URL with /api prefix - the proxy will handle forwarding to backend
-      const response = await axios.get(`/api/admin/posts`, {
+      // Use shared API client (baseURL set per environment)
+      const response = await api.get(`/api/admin/posts`, {
         headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
