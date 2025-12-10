@@ -51,14 +51,24 @@ const AdminDashboard = () => {
         await api.put(
           `/api/admin/posts/${editingPost.id.replace('post:','')}`,
           formDataToSend,
-          { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' } }
+          { 
+            headers: { 
+              Authorization: `Bearer ${token}`
+              // Don't set Content-Type for FormData - axios will set it automatically with boundary
+            } 
+          }
         );
         setFormSuccess('Post updated successfully');
       } else {
         await api.post(
           `/api/admin/posts`,
           formDataToSend,
-          { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' } }
+          { 
+            headers: { 
+              Authorization: `Bearer ${token}`
+              // Don't set Content-Type for FormData - axios will set it automatically with boundary
+            } 
+          }
         );
         setFormSuccess('Post created successfully');
       }
