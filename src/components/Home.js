@@ -17,13 +17,16 @@ const Home = () => {
 
   // Loading and error display will be handled by PageLayout
 
+  // Ensure posts is always an array to prevent .map() errors
+  const safePosts = Array.isArray(posts) ? posts : [];
+
   return (
     <PageLayout pageTitle="Blog Posts" loading={loading} error={error}>
       {/* The main content specific to Home.js goes here */}
       {!loading && !error && (
         <Grid container spacing={3} className="blog-grid">
-          {posts.length > 0 ? (
-            posts.map((post) => (
+          {safePosts.length > 0 ? (
+            safePosts.map((post) => (
               <Grid item xs={12} sm={6} md={4} key={post.id}>
                 <PostCard post={post} type="summary" />
               </Grid>

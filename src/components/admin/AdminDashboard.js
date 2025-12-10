@@ -170,7 +170,7 @@ const AdminDashboard = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {posts.map((post) => (
+              {(Array.isArray(posts) ? posts : []).map((post) => (
                 <TableRow key={post.id}>
                   <TableCell>{post.title}</TableCell>
                   <TableCell>{post.categories?.join(', ')}</TableCell>
