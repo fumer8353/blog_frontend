@@ -6,9 +6,19 @@ import axios from 'axios';
 const getApiBaseUrl = () => {
   // Always prefer environment variable if set
   if (process.env.REACT_APP_API_BASE_URL) {
-    const url = process.env.REACT_APP_API_BASE_URL.trim();
+    let url = process.env.REACT_APP_API_BASE_URL.trim();
+    
     // Remove trailing slash if present
-    return url.endsWith('/') ? url.slice(0, -1) : url;
+    if (url.endsWith('/')) {
+      url = url.slice(0, -1);
+    }
+    
+    // Add https:// protocol if missing (but not if it's already http:// or https://)
+    if (!url.match(/^https?:\/\//i)) {
+      url = `https://${url}`;
+    }
+    
+    return url;
   }
   
   // In production, environment variable is required
@@ -72,8 +82,28 @@ api.interceptors.request.use(
 
 // Response interceptor for handling errors
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // Check if response is HTML instead of JSON (common when API URL is wrong)
+    const contentType = response.headers['content-type'] || '';
+    if (contentType.includes('text/html') && typeof response.data === 'string' && response.data.trim().startsWith('<!')) {
+      console.error('❌ Received HTML instead of JSON. This usually means the API URL is incorrect.');
+      console.error('💡 Check that REACT_APP_API_BASE_URL is set correctly in Azure Static Web App settings');
+      console.error('💡 Current baseURL:', API_BASE_URL);
+      console.error('💡 Full request URL:', response.config?.url);
+      throw new Error('API returned HTML instead of JSON. Check API base URL configuration.');
+    }
+    return response;
+  },
   (error) => {
+    // Check if error response is HTML
+    if (error.response?.data && typeof error.response.data === 'string' && error.response.data.trim().startsWith('<!')) {
+      console.error('❌ API Error: Received HTML instead of JSON');
+      console.error('💡 This usually means the API base URL is incorrect');
+      console.error('💡 Current baseURL:', API_BASE_URL);
+      console.error('💡 Request URL:', error.config?.url);
+      error.message = 'API returned HTML instead of JSON. Please check your API base URL configuration.';
+    }
+    
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       window.location.href = '/login';
